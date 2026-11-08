@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица умножения</title>
+
+    <style>
+        body {
+            font-family: Georgia, serif;
+            text-align: center;
+            background-color: #f5eee5;
+            color: #5c3d2e;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #6b422e;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        table {
+            margin: 30px auto;
+            border-collapse: collapse;
+            background-color: #fffaf3;
+            box-shadow: 0 5px 15px rgba(75, 48, 30, 0.12);
+        }
+
+        th, td {
+            width: 65px;
+            height: 55px;
+            border: 1px solid #c5a88b;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        th {
+            background-color: #79543a;
+            color: #fff8ef;
+        }
+
+        td {
+            color: #60432f;
+        }
+
+        td:first-child {
+            background-color: #eee0d0;
+            font-weight: bold;
+        }
+
+        td:hover {
+            background-color: #d8bea4;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Таблица умножения</h1>
+
+    <div id="result"></div>
+
+    <script>
+        let result = document.getElementById("result");
+        let table = document.createElement("table");
+
+        // создаем заголовок таблицы
+        let header = document.createElement("tr");
+
+        let emptyCell = document.createElement("th");
+        emptyCell.textContent = "×";
+        header.appendChild(emptyCell);
+
+        for (let i = 1; i <= 10; i++) {
+            let th = document.createElement("th");
+            th.textContent = i;
+            header.appendChild(th);
+        }
+
+        table.appendChild(header);
+
+        // создаем строки таблицы
+        for (let i = 1; i <= 10; i++) {
+            let row = document.createElement("tr");
+
+            // первый столбец с числами
+            let title = document.createElement("th");
+            title.textContent = i;
+            row.appendChild(title);
+
+            // заполняем таблицу результатами умножения
+            for (let j = 1; j <= 10; j++) {
+                let cell = document.createElement("td");
+                cell.textContent = i * j;
+                row.appendChild(cell);
+            }
+
+            table.appendChild(row);
+        }
+
+        // добавляем таблицу на страницу
+        result.appendChild(table);
+    </script>
+
+</body>
+</html>

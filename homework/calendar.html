@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой календарь</title>
+
+    <style>
+        body {
+            font-family: Georgia, serif;
+            text-align: center;
+            background-color: #f5eee5;
+            color: #5c3d2e;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #6b422e;
+            font-size: 32px;
+            text-transform: capitalize;
+        }
+
+        table {
+            margin: 30px auto;
+            border-collapse: collapse;
+            background-color: #fffaf3;
+            box-shadow: 0 5px 15px rgba(75, 48, 30, 0.12);
+        }
+
+        th, td {
+            width: 65px;
+            height: 55px;
+            border: 1px solid #c5a88b;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        th {
+            background-color: #79543a;
+            color: #fff8ef;
+        }
+
+        td {
+            color: #60432f;
+        }
+
+        td:nth-child(6),
+        td:nth-child(7) {
+            background-color: #eee0d0;
+        }
+
+        .today {
+            background-color: #79543a !important;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 id="month"></h1>
+    <div id="calendar"></div>
+
+    <script>
+        let date = new Date();
+
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        let today = date.getDate();
+
+        let monthTitle = document.getElementById("month");
+        let calendarBlock = document.getElementById("calendar");
+
+        let monthName = date.toLocaleString("ru-RU", {
+            month: "long"
+        });
+
+        monthTitle.textContent =
+            monthName.charAt(0).toUpperCase() +
+            monthName.slice(1) + " " + year;
+
+        // определяем количество дней в месяце
+        let daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        // определяоем день недели первого чисола
+        let startDay = new Date(year, month, 1).getDay();
+
+        startDay = (startDay + 6) % 7;
+
+        let table = document.createElement("table");
+
+        // создаем заголовок таблицы
+        let week = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+        let header = document.createElement("tr");
+
+        for (let day of week) {
+            let th = document.createElement("th");
+            th.textContent = day;
+            header.appendChild(th);
+        }
+
+        table.appendChild(header);
+
+        let currentDay = 1;
+
+        // pаполняем календарь
+        while (currentDay <= daysInMonth) {
+            let row = document.createElement("tr");
+
+            for (let i = 0; i < 7; i++) {
+                let cell = document.createElement("td");
+
+                if (currentDay === 1 && i < startDay) {
+                    cell.textContent = "";
+                } else if (currentDay <= daysInMonth) {
+                    cell.textContent = currentDay;
+
+                    if (currentDay === today) {
+                        cell.classList.add("today");
+                    }
+
+                    currentDay++;
+                }
+
+                row.appendChild(cell);
+            }
+
+            table.appendChild(row);
+        }
+
+        calendarBlock.appendChild(table);
+    </script>
+
+</body>
+</html>
